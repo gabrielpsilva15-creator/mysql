@@ -93,15 +93,6 @@ MAX(preco) AS maior_preco
 FROM servicos
 GROUP BY categoria;
 
--- GROUP BY: Quantidade de veículos por marca
-SELECT marca, COUNT(*) AS quantidade
-FROM veiculos
-GROUP BY marca;
-
--- GROUP BY: Quantidade de ordens por status
-SELECT status, COUNT(*) AS quantidade
-FROM ordens_servico
-GROUP BY status;
 
 -- GROUP BY: Valor total por cliente
 SELECT id_cliente, SUM(valor_total) AS total_gasto
