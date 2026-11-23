@@ -43,9 +43,11 @@ CREATE TABLE ordens_servico (
     data_saida DATE,
     status VARCHAR(50),
     valor_total DECIMAL(10,2),
+
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
     FOREIGN KEY (id_veiculo) REFERENCES veiculos(id_veiculo)
 );
+
 
 -- Inserir clientes
 INSERT INTO clientes (nome, cpf, telefone, endereco, data_cadastro)
@@ -74,13 +76,37 @@ VALUES
 (2, 2, 'Revisão elétrica', '2026-11-23', NULL, 'Em andamento', 200.00);
 
 -- SELECT: Consultar todas as tabelas
-SELECT * FROM clientes;
+-- GROUP BY: Agrupar serviços por categoria
+SELECT categoria, COUNT(*) AS quantidade
+FROM servicos
+GROUP BY categoria;
 
-SELECT * FROM veiculos;
+-- GROUP BY: Média de preços por categoria
+SELECT categoria, AVG(preco) AS media_preco
+FROM servicos
+GROUP BY categoria;
 
-SELECT * FROM servicos;
+-- GROUP BY: Menor e maior preço por categoria
+SELECT categoria,
+MIN(preco) AS menor_preco,
+MAX(preco) AS maior_preco
+FROM servicos
+GROUP BY categoria;
 
-SELECT * FROM ordens_servico;
+-- GROUP BY: Quantidade de veículos por marca
+SELECT marca, COUNT(*) AS quantidade
+FROM veiculos
+GROUP BY marca;
+
+-- GROUP BY: Quantidade de ordens por status
+SELECT status, COUNT(*) AS quantidade
+FROM ordens_servico
+GROUP BY status;
+
+-- GROUP BY: Valor total por cliente
+SELECT id_cliente, SUM(valor_total) AS total_gasto
+FROM ordens_servico
+GROUP BY id_cliente;
 
 -- UPDATE: Atualizar somente um dado
 UPDATE clientes
